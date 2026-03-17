@@ -1,116 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Chart, registerables } from "chart.js";
 import "./Analytics.css";
+import TransactionContext from "../../context/TransactionContext";
 
 Chart.register(...registerables);
-
-const transactions = [
-  {
-    date: "2025-12-28",
-    description: "Phone Bill",
-    category: "Utilities",
-    type: "expense",
-    amount: -55,
-  },
-  {
-    date: "2025-12-30",
-    description: "Bonus",
-    category: "Salary",
-    type: "income",
-    amount: 2000,
-  },
-  {
-    date: "2026-01-01",
-    description: "Rent Payment",
-    category: "Housing",
-    type: "expense",
-    amount: -1200,
-  },
-  {
-    date: "2026-01-02",
-    description: "Dividend Payment",
-    category: "Investment",
-    type: "income",
-    amount: 150,
-  },
-  {
-    date: "2026-01-03",
-    description: "Gym Membership",
-    category: "Health",
-    type: "expense",
-    amount: -50,
-  },
-  {
-    date: "2026-01-04",
-    description: "Online Shopping",
-    category: "Shopping",
-    type: "expense",
-    amount: -230,
-  },
-  {
-    date: "2026-01-05",
-    description: "Gas Station",
-    category: "Transport",
-    type: "expense",
-    amount: -45,
-  },
-  {
-    date: "2026-01-06",
-    description: "Client Payment",
-    category: "Freelance",
-    type: "income",
-    amount: 1200,
-  },
-  {
-    date: "2026-01-07",
-    description: "Internet Bill",
-    category: "Utilities",
-    type: "expense",
-    amount: -60,
-  },
-  {
-    date: "2026-01-08",
-    description: "Investment Return",
-    category: "Investment",
-    type: "income",
-    amount: 320,
-  },
-  {
-    date: "2026-01-09",
-    description: "Restaurant",
-    category: "Food",
-    type: "expense",
-    amount: -65,
-  },
-  {
-    date: "2026-01-10",
-    description: "Electric Bill",
-    category: "Utilities",
-    type: "expense",
-    amount: -85,
-  },
-  {
-    date: "2026-01-11",
-    description: "Freelance Project",
-    category: "Freelance",
-    type: "income",
-    amount: 800,
-  },
-  {
-    date: "2026-01-12",
-    description: "Grocery Shopping",
-    category: "Food",
-    type: "expense",
-    amount: -150,
-  },
-  {
-    date: "2026-01-13",
-    description: "Salary Deposit",
-    category: "Salary",
-    type: "income",
-    amount: 5000,
-  },
-];
 
 const BAR_COLORS = [
   "#3266ad",
@@ -180,7 +73,7 @@ function SectionTitle({ children }) {
   return <p className="section-title">{children}</p>;
 }
 
-function DailyChart({ breakpoint }) {
+function DailyChart({ breakpoint, transactions }) {
   const ref = useRef();
   const isMobile = breakpoint === "mobile";
   const isTablet = breakpoint === "mobile";
@@ -253,7 +146,7 @@ function DailyChart({ breakpoint }) {
   );
 }
 
-function CategoryBarChart({ breakpoint }) {
+function CategoryBarChart({ breakpoint, transactions }) {
   const ref = useRef();
   const isMobile = breakpoint === "mobile";
   const isTablet = breakpoint === "tablet";
@@ -366,6 +259,8 @@ function DoughnutChart({ title, labels, values, colors }) {
 }
 
 export default function Analytics() {
+  const { transactions } = useContext(TransactionContext);
+
   const breakpoint = useBreakpoint();
 
   const totalIncome = transactions
@@ -417,8 +312,8 @@ export default function Analytics() {
         <MetricCard label="Transactions" value={transactions.length} />
       </div>
 
-      <DailyChart breakpoint={breakpoint} />
-      <CategoryBarChart breakpoint={breakpoint} />
+      <DailyChart breakpoint={breakpoint} transactions={transactions} />
+      <CategoryBarChart breakpoint={breakpoint} transactions={transactions} />
 
       <div className="doughnuts-grid">
         <DoughnutChart

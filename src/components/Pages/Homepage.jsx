@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./Homepage.css";
 import { Link } from "react-router-dom";
 import SectionContext from "../../context/SectionContext";
@@ -7,26 +7,54 @@ import { BanknoteArrowDown, MoveDown, MoveUp, Send } from "lucide-react";
 import LoadingContext from "../../context/LoadingContext";
 
 const Homepage = () => {
+  const [sendScreenActive, toggleSendScreen] = useState(false);
+
   const { selectSection } = useContext(SectionContext);
 
-  const { transactions, getTopSpendingCategory, addTransaction } =
-    useContext(TransactionContext);
+  const {
+    transactions,
+    getTopSpendingCategory,
+    addTransaction,
+    getCategories,
+  } = useContext(TransactionContext);
 
-  const { toggleLoading } = useContext(LoadingContext);
+  const { beginLoad, endLoad } = useContext(LoadingContext);
 
   const topSpend = getTopSpendingCategory();
 
   function Fund() {
-    toggleLoading(true);
+    beginLoad("Loading");
     setTimeout(() => {
       addTransaction({
         date: new Date().toISOString().split("T")[0],
         description: "Monthly Income",
         category: "Salary",
         type: "income",
-        amount: 5000,
+        amount: 3000,
       });
-      toggleLoading(false);
+      endLoad(true);
+    }, 5000);
+  }
+
+  const descriptionRef = useRef("");
+  const amountRef = useRef("");
+  const categoryRef = useRef("");
+
+  function sendFund() {
+    toggleSendScreen(false);
+    beginLoad("Loading");
+
+    const transaction = {
+      date: new Date().toISOString().split("T")[0],
+      description: descriptionRef.current.value,
+      category: categoryRef.current.value,
+      type: "expense",
+      amount: -1 * Number(amountRef.current.value),
+    };
+
+    setTimeout(() => {
+      addTransaction(transaction);
+      endLoad(true);
     }, 5000);
   }
 
@@ -68,7 +96,12 @@ const Homepage = () => {
       <div className="transact">
         <p className="header-text">Transact</p>
         <div className="transact-options">
-          <button className="transact-button">
+          <button
+            className="transact-button"
+            onClick={() => {
+              toggleSendScreen(true);
+            }}
+          >
             <Send /> Send Money
           </button>
           <button className="transact-button" onClick={Fund}>
@@ -85,30 +118,28 @@ const Homepage = () => {
           </div>
         </div>
         <div className="transactions">
-          {transactions
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .map(
-              (entry, index) =>
-                index < 2 && (
-                  <div className="transaction">
-                    <div className="details">
-                      <div className="icon">
-                        {entry.amount > 0 ? <MoveDown /> : <MoveUp />}
-                      </div>
-                      <div>
-                        <p className="name">{entry.description}</p>
-                        <p className="date">{entry.date}</p>
-                      </div>
+          {transactions.toReversed().map(
+            (entry, index) =>
+              index < 2 && (
+                <div className="transaction">
+                  <div className="details">
+                    <div className="icon">
+                      {entry.amount > 0 ? <MoveDown /> : <MoveUp />}
                     </div>
-                    <div
-                      className={`amt ${entry.amount > 0 ? "credit" : "debit"}`}
-                    >
-                      {entry.amount < 0 && "-"}₦
-                      {Math.abs(entry.amount).toLocaleString()}
+                    <div>
+                      <p className="name">{entry.description}</p>
+                      <p className="date">{entry.date}</p>
                     </div>
                   </div>
-                ),
-            )}
+                  <div
+                    className={`amt ${entry.amount > 0 ? "credit" : "debit"}`}
+                  >
+                    {entry.amount < 0 && "-"}₦
+                    {Math.abs(entry.amount).toLocaleString()}
+                  </div>
+                </div>
+              ),
+          )}
         </div>
       </div>
 
@@ -153,6 +184,31 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+
+      {sendScreenActive && (
+        <div className="send-screen">
+          <div className="send-card">
+            <p className="send-card-head">Send Funds</p>
+            <label>
+              Enter Amount
+              <input type="number" ref={amountRef} />
+            </label>
+            <label>
+              Enter Description
+              <input type="text" ref={descriptionRef} />
+            </label>
+            <label>
+              Choose Category
+              <select name="" id="" ref={categoryRef}>
+                {getCategories().map((entry) => (
+                  <option value={entry}>{entry}</option>
+                ))}
+              </select>
+            </label>
+            <button onClick={sendFund}>Send</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -31,9 +31,7 @@ const Transactions = () => {
       new Date(entry.date) <= new Date(maxDate),
   );
 
-  filterdTransactions = filterdTransactions.sort(
-    (a, b) => new Date(b.date) - new Date(a.date),
-  );
+  filterdTransactions = filterdTransactions.toReversed();
 
   return (
     <>

@@ -8,7 +8,7 @@
   justify-content: center;
   flex-direction: column;
   background-color: transparent;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
   padding-left: 20rem;
   z-index: 13;
 }
@@ -22,13 +22,22 @@
 }
 
 .circle {
-  border: solid 5px wheat;
-  border-top: solid 5px transparent;
-  border-bottom: solid 5px transparent;
-  width: 3rem;
+  border: solid 8px wheat;
+  border-top: solid 8px transparent;
+  border-bottom: solid 8px transparent;
+  width: 5rem;
   aspect-ratio: 1;
   border-radius: 50%;
   animation: spin 1s linear 0s infinite;
+}
+
+.done {
+  font-size: xx-large;
+}
+
+.spinner-msg {
+  font-size: xx-large;
+  font-weight: bold;
 }
 
 @keyframes spin {

@@ -3,13 +3,19 @@ import "./Spinner.css";
 import LoadingContext from "../../context/LoadingContext";
 
 const Spinner = () => {
-  const { loading } = useContext(LoadingContext);
+  const { loading, message } = useContext(LoadingContext);
 
   return (
-    <div className={`spinner ${!loading && "hidden"}`}>
+    <div className={`spinner ${loading == 0 && "hidden"}`}>
       <div className="parent">
-        <div className="circle"></div>
-        <p>Loading</p>
+        {loading == 1 ? (
+          <div className="circle"></div>
+        ) : (
+          <div className="done">
+            {message.toLowerCase() == "success" ? "✅" : "❌"}
+          </div>
+        )}
+        <p className="spinner-msg">{message}</p>
       </div>
     </div>
   );
