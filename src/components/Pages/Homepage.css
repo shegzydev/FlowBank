@@ -36,6 +36,7 @@ p {
   gap: 1rem;
   flex-basis: 24%;
   box-shadow: 0 0 7px #111827;
+  color: whitesmoke;
 }
 
 .head {
