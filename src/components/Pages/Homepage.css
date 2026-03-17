@@ -1,0 +1,151 @@
+.balance-card {
+  background-color: #111827;
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.balance-amount {
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+.inc-exp {
+  display: flex;
+  gap: 1rem;
+  opacity: 70%;
+}
+
+.transact-options {
+  /* background-color: #111827; */
+  background-color: transparent;
+  border-radius: 1rem;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: baseline;
+  gap: 1rem;
+}
+
+.transact-button {
+  background-color: #5d72a1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-basis: 24%;
+  box-shadow: 0 0 7px #111827;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text {
+  font-weight: bold;
+}
+
+.head .all {
+  cursor: pointer;
+  color: #729aee;
+  font-weight: bold;
+}
+
+.transactions {
+  border-radius: 1rem;
+  padding: 0.5rem;
+  background-color: #111827;
+}
+
+.transaction {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.icon {
+  width: 54px;
+  height: 54px;
+  background-color: rgb(221, 85, 85);
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.amt {
+  font-size: large;
+  font-weight: bold;
+}
+
+.amt.debit {
+  color: red;
+}
+
+.amt.credit {
+  color: rgb(0, 255, 0);
+}
+
+.summary-container {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary-entry {
+  background-color: #111827;
+  border-radius: 1rem;
+  padding: 1rem;
+  flex-basis: 24%;
+  border-left: 5px solid #729aee;
+}
+
+.summary-value {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+  .summary-entry {
+    flex-basis: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .transact-options {
+    justify-content: space-between;
+  }
+
+  .transact-button {
+    flex-basis: 48%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .summary-entry {
+    flex-basis: 48%;
+    margin-bottom: 1rem;
+  }
+
+  .transact-options {
+    justify-content: space-between;
+  }
+
+  .transact-button {
+    flex-basis: 48%;
+  }
+}

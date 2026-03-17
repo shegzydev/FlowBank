@@ -1,0 +1,83 @@
+.sidebar-container {
+  background: #111827;
+  width: 20rem;
+  height: 100svh;
+  padding: 0 5px;
+  position: fixed;
+  z-index: 10;
+}
+
+@keyframes expand {
+  0% {
+    width: 0rem;
+  }
+
+  100% {
+    width: 20rem;
+  }
+}
+
+.bank-logo {
+  width: 3rem;
+}
+
+.title {
+  font-size: x-large;
+  font-weight: bolder;
+  padding: 1rem;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sidebuttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 1rem 0;
+}
+
+.sidebutton {
+  box-sizing: content-box;
+  height: 30px;
+  padding: 1rem;
+  background: #253453;
+  border-radius: 5px;
+  color: white;
+  font-weight: normal;
+  transition: all ease 0.2s;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sidebutton.chosen {
+  background: #436dc0;
+  border-left: 5px solid #5587e9;
+}
+
+.sidebutton:hover {
+  color: white;
+}
+
+.sidebutton:not(.chosen):hover {
+  background: #354b77;
+}
+
+hr {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 767px) {
+  .sidebar-container {
+    width: 16rem;
+    transform: translateX(-0rem);
+    transition: all ease-out 0.25s;
+  }
+
+  .sidebar-container.close {
+    transform: translateX(-16rem);
+  }
+}

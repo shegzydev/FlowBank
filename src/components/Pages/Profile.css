@@ -1,0 +1,34 @@
+.profile-container {
+  background-color: #111827;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.bio-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.user-name {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.user-email {
+  opacity: 70%;
+}
+
+.profile-icon {
+  width: 64px;
+  height: 64px;
+  background-color: blanchedalmond;
+  border-radius: 50%;
+}
+
+.profile-details-entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
