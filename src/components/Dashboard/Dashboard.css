@@ -15,6 +15,7 @@
   padding: 1rem;
 
   position: fixed;
+  top: 0;
   width: calc(100vw - 20rem);
   background-color: #3c4b63;
   box-shadow: 0 1px 5px #111827;
