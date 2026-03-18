@@ -50,15 +50,15 @@
 .dash-icon {
   background-color: #111827;
   border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   font-weight: bolder;
-  font-size: larger;
+  font-size: medium;
 }
 
 @media screen and (max-width: 767px) {

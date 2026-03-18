@@ -3,6 +3,7 @@ import "./App.css";
 import Spinner from "./components/Spinner/Spinner";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Login from "./components/Pages/Login";
 
 import { SectionProvider } from "./context/SectionContext";
 import { TransactionProvider } from "./context/TransactionContext";
@@ -14,24 +15,35 @@ import { LoadingProvider } from "./context/LoadingContext";
 
 function App() {
   const [sidebarOpened, toggleSidebar] = useState(false);
+  const [authed, setAuth] = useState(
+    Boolean(localStorage.getItem("auth")) || false,
+  );
 
   return (
     <>
       <Router>
         <LoadingProvider>
           <UserProvider>
-            <TransactionProvider>
-              <SectionProvider>
-                <div className="sidebar-dash">
-                  <Sidebar
-                    opened={sidebarOpened}
-                    toggle={toggleSidebar}
-                  ></Sidebar>
-                  <Dashboard toggleSidebar={toggleSidebar}></Dashboard>
-                </div>
-                <Spinner></Spinner>
-              </SectionProvider>
-            </TransactionProvider>
+            {authed ? (
+              <TransactionProvider>
+                <SectionProvider>
+                  <div className="sidebar-dash">
+                    <Sidebar
+                      opened={sidebarOpened}
+                      toggle={toggleSidebar}
+                      setAuth={setAuth}
+                    ></Sidebar>
+                    <Dashboard
+                      toggleSidebar={toggleSidebar}
+                      sidebarOpened={sidebarOpened}
+                    ></Dashboard>
+                  </div>
+                  <Spinner></Spinner>
+                </SectionProvider>
+              </TransactionProvider>
+            ) : (
+              <Login setAuth={setAuth} />
+            )}
           </UserProvider>
         </LoadingProvider>
       </Router>

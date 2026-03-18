@@ -15,7 +15,7 @@ const Homepage = () => {
     transactions,
     getTopSpendingCategory,
     addTransaction,
-    getCategories,
+    getExpenseCategories,
   } = useContext(TransactionContext);
 
   const { beginLoad, endLoad } = useContext(LoadingContext);
@@ -59,9 +59,9 @@ const Homepage = () => {
   }
 
   return (
-    <>
+    <div className="homepage-container">
       <div className="balance-card">
-        <p>Total Balance</p>
+        <p className="labels">Total Balance</p>
         <p className="balance-amount">
           ₦
           {transactions
@@ -70,17 +70,17 @@ const Homepage = () => {
         </p>
         <div className="inc-exp">
           <div className="income">
-            <p>Income</p>
-            <p>
+            <p className="labels">Income</p>
+            <span>
               ₦
               {transactions
                 .reduce((accum, entry) => accum + Math.max(0, entry.amount), 0)
                 .toLocaleString()}
-            </p>
+            </span>
           </div>
           <div className="expense">
-            <p>Expenses</p>
-            <p>
+            <p className="labels">Expenses</p>
+            <span>
               ₦
               {Math.abs(
                 transactions.reduce(
@@ -88,13 +88,12 @@ const Homepage = () => {
                   0,
                 ),
               ).toLocaleString()}
-            </p>
+            </span>
           </div>
         </div>
       </div>
 
       <div className="transact">
-        <p className="header-text">Transact</p>
         <div className="transact-options">
           <button
             className="transact-button"
@@ -102,7 +101,7 @@ const Homepage = () => {
               toggleSendScreen(true);
             }}
           >
-            <Send /> Send Money
+            <Send /> Send Cash
           </button>
           <button className="transact-button" onClick={Fund}>
             <BanknoteArrowDown /> Fund Wallet
@@ -120,7 +119,7 @@ const Homepage = () => {
         <div className="transactions">
           {transactions.toReversed().map(
             (entry, index) =>
-              index < 2 && (
+              index < 3 && (
                 <div className="transaction">
                   <div className="details">
                     <div className="icon">
@@ -144,21 +143,23 @@ const Homepage = () => {
       </div>
 
       <div className="summary">
-        <p className="header-text">Analytics Summary</p>
+        <div className="head">
+          <p className="header-text">Analytics Summary</p>
+        </div>
         <div className="summary-container">
           <div className="summary-entry">
-            <p>Total Income</p>
+            <p className="labels">Total Income</p>
             <p className="summary-value">
               ₦
               {transactions
                 .reduce((accum, entry) => accum + Math.max(0, entry.amount), 0)
                 .toLocaleString()}
             </p>
-            <p>All income transactions</p>
+            <p className="labels">All income transactions</p>
           </div>
 
           <div className="summary-entry">
-            <p>Total Expenses</p>
+            <p className="labels">Total Expenses</p>
             <p className="summary-value">
               ₦
               {Math.abs(
@@ -168,39 +169,47 @@ const Homepage = () => {
                 ),
               ).toLocaleString()}
             </p>
-            <p>All expense transactions</p>
+            <p className="labels">All expense transactions</p>
           </div>
 
           <div className="summary-entry">
-            <p>Most Spent On</p>
+            <p className="labels">Most Spent On</p>
             <p className="summary-value">{topSpend.category}</p>
-            <p>₦{topSpend.total.toLocaleString()} spent</p>
+            <p className="labels">₦{topSpend.total.toLocaleString()} spent</p>
           </div>
 
           <div className="summary-entry">
-            <p>Transaction Count</p>
+            <p className="labels">Transaction Count</p>
             <p className="summary-value">{transactions.length}</p>
-            <p>Total transactions</p>
+            <p className="labels">Total transactions</p>
           </div>
         </div>
       </div>
 
       {sendScreenActive && (
-        <div className="send-screen">
-          <div className="send-card">
+        <div className="send-screen" onClick={() => toggleSendScreen(false)}>
+          <div className="send-card" onClick={(e) => e.stopPropagation()}>
             <p className="send-card-head">Send Funds</p>
             <label>
-              Enter Amount
-              <input type="number" ref={amountRef} />
+              Amount
+              <input
+                type="number"
+                ref={amountRef}
+                placeholder="Enter amount..."
+              />
             </label>
             <label>
-              Enter Description
-              <input type="text" ref={descriptionRef} />
+              Description
+              <input
+                type="text"
+                ref={descriptionRef}
+                placeholder="Enter description..."
+              />
             </label>
             <label>
-              Choose Category
+              Category
               <select name="" id="" ref={categoryRef}>
-                {getCategories().map((entry) => (
+                {getExpenseCategories().map((entry) => (
                   <option value={entry}>{entry}</option>
                 ))}
               </select>
@@ -209,7 +218,7 @@ const Homepage = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

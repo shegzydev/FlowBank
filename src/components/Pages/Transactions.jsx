@@ -111,9 +111,10 @@ const Transactions = () => {
                     <p className="transaction-date">{transaction.date}</p>
                   </div>
                   <div
-                    className={`${transaction.amount > 0 ? "credit" : "debit"}`}
+                    className={`transaction-amount ${transaction.amount > 0 ? "credit" : "debit"}`}
                   >
-                    ₦{Math.abs(transaction.amount).toLocaleString()}
+                    {transaction.amount < 0 && "-"}₦
+                    {Math.abs(transaction.amount).toLocaleString()}
                   </div>
                 </div>
                 <hr />
@@ -121,7 +122,11 @@ const Transactions = () => {
                   <span className="transaction-category">
                     {transaction.category}
                   </span>
-                  <span>{transaction.type}</span>
+                  <span
+                    className={`transaction-type ${transaction.amount > 0 ? "credit" : "debit"}`}
+                  >
+                    {transaction.type}
+                  </span>
                 </div>
               </div>
               <hr />

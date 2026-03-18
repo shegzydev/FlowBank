@@ -5,7 +5,11 @@
   padding: 0 5px;
   position: fixed;
   top: 0;
-  z-index: 10;
+  z-index: 11;
+}
+
+.sidebar-under {
+  display: none;
 }
 
 @keyframes expand {
@@ -19,7 +23,7 @@
 }
 
 .bank-logo {
-  width: 3rem;
+  width: 2rem;
 }
 
 .title {
@@ -54,6 +58,10 @@
   gap: 1rem;
 }
 
+.sidebutton.logout {
+  background: #532525 !important;
+}
+
 .sidebutton.chosen {
   background: #436dc0;
   border-left: 5px solid #5587e9;
@@ -76,6 +84,18 @@ hr {
     width: 16rem;
     transform: translateX(-0rem);
     transition: all ease-out 0.25s;
+
+    margin-right: 50px;
+    backdrop-filter: blur(2px);
+  }
+
+  .sidebar-under {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(10px);
+    z-index: 10;
   }
 
   .sidebar-container.close {

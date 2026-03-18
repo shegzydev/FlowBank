@@ -4,14 +4,19 @@ import SectionContext from "../../context/SectionContext";
 import { useContext } from "react";
 import { Menu } from "lucide-react";
 
-const Dashboard = ({ toggleSidebar }) => {
+const Dashboard = ({ toggleSidebar, sidebarOpened }) => {
   const { selectedSectionIndex, sections, pages } = useContext(SectionContext);
 
   return (
     <div className="dash-container">
       <div className="top-section">
         <div className="dash-title">
-          <Menu className="hamburger" onClick={() => toggleSidebar(true)} />
+          <Menu
+            className="hamburger"
+            onClick={() => {
+              if (!sidebarOpened) toggleSidebar(true);
+            }}
+          />
           <span className="header">{sections[selectedSectionIndex]}</span>
         </div>
         <div className="mini-profile">

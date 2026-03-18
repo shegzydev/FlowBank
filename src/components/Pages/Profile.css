@@ -4,6 +4,10 @@
   padding: 2rem;
 }
 
+.profile-container hr {
+  opacity: 20%;
+}
+
 .bio-section {
   display: flex;
   align-items: center;

@@ -132,6 +132,22 @@ export function TransactionProvider(props) {
     return [...new Set(transactions.map((t) => t.category))];
   }
 
+  function getIncomeCategories() {
+    return [
+      ...new Set(
+        transactions.filter((t) => t.type === "income").map((t) => t.category),
+      ),
+    ];
+  }
+
+  function getExpenseCategories() {
+    return [
+      ...new Set(
+        transactions.filter((t) => t.type === "expense").map((t) => t.category),
+      ),
+    ];
+  }
+
   function addTransaction(transaction) {
     const updated = [...transactions, transaction];
     setTransactions(updated);
@@ -145,6 +161,8 @@ export function TransactionProvider(props) {
         addTransaction,
         getTopSpendingCategory,
         getCategories,
+        getIncomeCategories,
+        getExpenseCategories,
       }}
     >
       {props.children}
