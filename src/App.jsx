@@ -16,7 +16,7 @@ import { LoadingProvider } from "./context/LoadingContext";
 function App() {
   const [sidebarOpened, toggleSidebar] = useState(false);
   const [authed, setAuth] = useState(
-    Boolean(localStorage.getItem("auth")) || false,
+    localStorage.getItem("auth") === "true" || false,
   );
 
   return (
