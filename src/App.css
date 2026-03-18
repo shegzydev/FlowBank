@@ -2,8 +2,7 @@
   width: 100svw;
   height: 100vh;
   margin: 0 auto;
-  /* padding: 2rem; */
-  /* text-align: center; */
+  scroll-behavior: smooth;
 }
 
 .sidebar-dash {

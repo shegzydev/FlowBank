@@ -18,7 +18,9 @@
 }
 
 .parent {
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .circle {

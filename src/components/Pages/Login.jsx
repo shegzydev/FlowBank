@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Emblem from "/emblem.png";
 import "./Login.css";
 import { ArrowRight } from "lucide-react";
+import LoadingContext from "../../context/LoadingContext";
 
 const Login = ({ setAuth }) => {
+  const { beginLoad, endLoad } = useContext(LoadingContext);
+
   function login() {
-    setAuth(true);
-    localStorage.setItem("auth", true);
+    beginLoad("Login in...");
+    setTimeout(() => {
+      setAuth(true);
+      localStorage.setItem("auth", true);
+      endLoad(true);
+    }, 3000);
   }
   return (
     <div className="login-container">

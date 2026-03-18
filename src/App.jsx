@@ -12,6 +12,7 @@ import { UserProvider } from "./context/UserContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
 import { LoadingProvider } from "./context/LoadingContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [sidebarOpened, toggleSidebar] = useState(false);
@@ -27,6 +28,7 @@ function App() {
             {authed ? (
               <TransactionProvider>
                 <SectionProvider>
+                  <ScrollToTop />
                   <div className="sidebar-dash">
                     <Sidebar
                       opened={sidebarOpened}
@@ -38,12 +40,12 @@ function App() {
                       sidebarOpened={sidebarOpened}
                     ></Dashboard>
                   </div>
-                  <Spinner></Spinner>
                 </SectionProvider>
               </TransactionProvider>
             ) : (
               <Login setAuth={setAuth} />
             )}
+            <Spinner></Spinner>
           </UserProvider>
         </LoadingProvider>
       </Router>
