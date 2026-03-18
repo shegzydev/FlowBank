@@ -16,6 +16,7 @@ const Homepage = () => {
     getTopSpendingCategory,
     addTransaction,
     getExpenseCategories,
+    acctBalance,
   } = useContext(TransactionContext);
 
   const { beginLoad, endLoad } = useContext(LoadingContext);
@@ -40,13 +41,17 @@ const Homepage = () => {
   const amountRef = useRef("");
   const categoryRef = useRef("");
 
+  function sanitizeInput(value) {
+    return value.replace(/[^a-zA-Z0-9 ]/g, "");
+  }
+
   function sendFund() {
     toggleSendScreen(false);
     beginLoad("Loading");
 
     const transaction = {
       date: new Date().toISOString().split("T")[0],
-      description: descriptionRef.current.value,
+      description: sanitizeInput(descriptionRef.current.value),
       category: categoryRef.current.value,
       type: "expense",
       amount: -1 * Number(amountRef.current.value),
@@ -192,31 +197,46 @@ const Homepage = () => {
         <div className="send-screen" onClick={() => toggleSendScreen(false)}>
           <div className="send-card" onClick={(e) => e.stopPropagation()}>
             <p className="send-card-head">Send Funds</p>
-            <label>
-              Amount
-              <input
-                type="number"
-                ref={amountRef}
-                placeholder="Enter amount..."
-              />
-            </label>
-            <label>
-              Description
-              <input
-                type="text"
-                ref={descriptionRef}
-                placeholder="Enter description..."
-              />
-            </label>
-            <label>
-              Category
-              <select name="" id="" ref={categoryRef}>
-                {getExpenseCategories().map((entry) => (
-                  <option value={entry}>{entry}</option>
-                ))}
-              </select>
-            </label>
-            <button onClick={sendFund}>Send</button>
+            <form action={sendFund}>
+              <label>
+                Amount
+                <input
+                  type="number"
+                  ref={amountRef}
+                  placeholder="Enter amount..."
+                  required
+                  max={acctBalance()}
+                  min={0}
+                />
+              </label>
+              <label>
+                Account Number
+                <input
+                  type="number"
+                  placeholder="Enter account nuber..."
+                  required
+                  maxLength={10}
+                />
+              </label>
+              <label>
+                Description
+                <input
+                  type="text"
+                  ref={descriptionRef}
+                  placeholder="Enter description..."
+                  required
+                />
+              </label>
+              <label>
+                Category
+                <select name="" id="" ref={categoryRef}>
+                  {getExpenseCategories().map((entry) => (
+                    <option value={entry}>{entry}</option>
+                  ))}
+                </select>
+              </label>
+              <button>Send</button>
+            </form>
           </div>
         </div>
       )}

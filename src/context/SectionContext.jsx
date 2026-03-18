@@ -10,11 +10,11 @@ import { Home, ArrowRightLeft, ChartLine, User } from "lucide-react";
 const SectionContext = createContext();
 
 export function SectionProvider(props) {
+  const [selectedSectionIndex, selectSection] = useState(0);
+
   const sections = ["Home", "Transactions", "Analytics", "Profile"];
   const pages = [<Homepage />, <Transactions />, <Analytics />, <Profile />];
   const icons = [<Home />, <ArrowRightLeft />, <ChartLine />, <User />];
-
-  const [selectedSectionIndex, selectSection] = useState(0);
 
   return (
     <SectionContext.Provider

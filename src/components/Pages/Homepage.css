@@ -172,6 +172,12 @@
   justify-content: center;
 }
 
+.send-screen form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .send-card {
   box-sizing: border-box;
 
