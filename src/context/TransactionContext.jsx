@@ -4,7 +4,7 @@ const TransactionContext = createContext();
 
 export function TransactionProvider(props) {
   const [transactions, setTransactions] = useState(
-    JSON.parse(localStorage.getItem("transactions")) ?? [
+    JSON.parse(JSON.parse(localStorage.getItem("transactions"))) ?? [
       {
         date: "2025-12-28",
         description: "Phone Bill",
