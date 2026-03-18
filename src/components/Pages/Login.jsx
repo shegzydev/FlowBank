@@ -16,11 +16,15 @@ const Login = ({ setAuth }) => {
     beginLoad("Login in...");
 
     const name = `${firstName.current.value} ${lastName.current.value}`;
+    const email = `${firstName.current.value}${lastName.current.value}@email.com`;
 
     setTimeout(() => {
       setAuth(true);
       localStorage.setItem("auth", true);
-      updateUser("name", name);
+      updateUser({
+        name,
+        email,
+      });
       endLoad(true);
     }, 3000);
   }

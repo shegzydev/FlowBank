@@ -19,16 +19,12 @@ export function UserProvider(props) {
     },
   );
 
-  function sanitizeInput(value) {
-    return value.replace(/[^a-zA-Z0-9 ]/g, "");
-  }
-
-  function updateUser(key, value) {
-    if (key in user) {
-      const newUser = { ...user, [key]: sanitizeInput(value) };
-      setUser(newUser);
+  function updateUser(data) {
+    setUser((prevUser) => {
+      const newUser = { ...prevUser, ...data };
       localStorage.setItem("user", JSON.stringify(newUser));
-    }
+      return newUser;
+    });
   }
 
   return (

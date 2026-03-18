@@ -38,8 +38,13 @@ const Homepage = () => {
   }
 
   const descriptionRef = useRef("");
+  const [acctNo, setAcctNo] = useState("");
   const amountRef = useRef("");
   const categoryRef = useRef("");
+
+  function sanitizeAcctNo(value, length) {
+    return value.replace(/[^0-9]/g, "").slice(0, length);
+  }
 
   function sanitizeInput(value) {
     return value.replace(/[^a-zA-Z0-9 ]/g, "");
@@ -213,9 +218,17 @@ const Homepage = () => {
                 Account Number
                 <input
                   type="number"
+                  value={acctNo}
                   placeholder="Enter account nuber..."
                   required
-                  maxLength={10}
+                  onBeforeInput={(e) => {
+                    if (/[^0-9]/.test(e.data)) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onChange={(e) => {
+                    setAcctNo(sanitizeAcctNo(e.target.value, 10));
+                  }}
                 />
               </label>
               <label>
