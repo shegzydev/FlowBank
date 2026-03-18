@@ -13,7 +13,7 @@ const Login = ({ setAuth }) => {
   const lastName = useRef("Olu-Abe");
 
   function login() {
-    beginLoad("Login in...");
+    beginLoad("Logging in...");
 
     const name = `${firstName.current.value} ${lastName.current.value}`;
     const email = `${firstName.current.value}${lastName.current.value}@email.com`;
