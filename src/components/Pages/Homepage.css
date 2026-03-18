@@ -222,6 +222,8 @@
   border-radius: 0.5rem;
   border: 1px solid #888;
   background-color: #253453;
+  font-size: medium;
+  color: white;
 }
 
 .send-card button {
