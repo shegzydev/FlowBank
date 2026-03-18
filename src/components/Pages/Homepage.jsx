@@ -122,7 +122,9 @@ const Homepage = () => {
               index < 3 && (
                 <div className="transaction">
                   <div className="details">
-                    <div className="icon">
+                    <div
+                      className={`icon ${entry.amount > 0 ? "credit" : "debit"}`}
+                    >
                       {entry.amount > 0 ? <MoveDown /> : <MoveUp />}
                     </div>
                     <div>

@@ -41,7 +41,7 @@ const Sidebar = ({ opened, toggle, setAuth }) => {
             onClick={() => {
               toggle(false);
               setAuth(false);
-              localStorage.setItem("auth", false);
+              localStorage.clear();
             }}
           >
             <LogOut />

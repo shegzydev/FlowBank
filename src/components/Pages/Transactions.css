@@ -86,7 +86,7 @@
 
   .transaction-entry-card {
     background-color: #111827;
-    /* box-shadow: 0px 0px 8px #3e5892; */
+    box-shadow: 0px 0px 3px #1e2a44;
     border-radius: 1rem;
     padding: 1rem;
     margin-bottom: 0.5rem;
